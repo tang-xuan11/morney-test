@@ -10,6 +10,7 @@
 
 #app {
   font-family: $font-hei;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
