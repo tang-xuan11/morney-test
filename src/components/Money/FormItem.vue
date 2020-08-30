@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label class="notes">
+    <label class="formItem">
       <span class="name">{{this.fieldName}}</span>
       <input v-model="value" type="text" :placeholder="this.placeholder" />
     </label>
@@ -23,9 +23,8 @@ export default class Notes extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.notes {
+.formItem {
   font-size: 16px;
-  background: #f5f5f5;
   display: flex;
   align-items: center;
   padding-left: 16px;
@@ -33,7 +32,7 @@ export default class Notes extends Vue {
     padding-right: 16px;
   }
   input {
-    padding: 20px 0;
+    padding: 8px 0;
     flex-grow: 1;
     background: transparent;
     border: none;
