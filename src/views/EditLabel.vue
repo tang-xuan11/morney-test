@@ -26,7 +26,7 @@ import store from "@/store/index2";
 export default class EditLabel extends Vue {
   tag?: Tag = undefined;
   created() {
-    const tag = store.findTag(this.$route.params.id);
+    this.tag = store.findTag(this.$route.params.id);
     if (!this.tag) {
       this.$router.replace("/404");
     }
