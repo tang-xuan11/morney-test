@@ -1,8 +1,8 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="typeList" :value.sync="type" />
-    <div>
-      <ol>
+    <div class="statistics-page">
+      <ol v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
           <h3 class="title">
             {{beautify(group.title)}}
@@ -17,13 +17,13 @@
           </ol>
         </li>
       </ol>
+      <div v-else class="noResult">目前没有相关记录</div>
     </div>
   </Layout>
 </template>
 
 <script lang="ts">
 import Tabs from "@/components/Tabs.vue";
-import intervalList from "@/constants/intervalList";
 import recordTypeList from "@/constants/recordTypeList";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
@@ -35,7 +35,7 @@ import clone from "@/lib/clone";
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? "无" : tags.join(",");
+    return tags.length === 0 ? "无" : tags.map((t) => t.name).join("，");
   }
   beautify(string: string) {
     const day = dayjs(string);
@@ -57,15 +57,15 @@ export default class Statistics extends Vue {
   }
   get groupedList() {
     const { recordList } = this;
-    if (recordList.length === 0) {
-      return [];
-    }
     type Result = { title: string; items: RecordItem[]; total?: number }[];
     const newList = clone(recordList)
       .filter((r) => r.type === this.type)
       .sort(
         (a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
       );
+    if (newList.length === 0) {
+      return [] as Result;
+    }
     const result: Result = [
       {
         title: dayjs(newList[0].createdAt).format("YYYY-MM-DD"),
@@ -99,6 +99,16 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.statistics-page {
+  overflow: auto;
+  max-height: 82vh;
+}
+.noResult {
+  padding: 16px;
+  margin-top: 32px;
+  text-align: center;
+}
+
 ::v-deep .type-tabs-item {
   background: white;
   &.selected {

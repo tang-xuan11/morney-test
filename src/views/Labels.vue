@@ -35,6 +35,7 @@ export default class Labels extends Vue {
       return;
     } else {
       this.$store.commit("createTag", name);
+      window.alert("添加成功");
     }
   }
 }

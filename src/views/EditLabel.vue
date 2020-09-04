@@ -6,7 +6,12 @@
       <span class="rightIcon"></span>
     </div>
     <div class="form-wapper">
-      <FormItem :value="currentTag.name" @update:value="update" fieldName="标签名" placeholder="请输入标签名" />
+      <FormItem
+        :value="currentTag.name"
+        @update:value="update"
+        fieldName="标签名"
+        placeholder="请输入标签名"
+      />
     </div>
     <div class="button-wapper">
       <Button @click="remove">删除标签</Button>
