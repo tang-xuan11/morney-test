@@ -1,6 +1,7 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="typeList" :value.sync="type" />
+    <Chart :options="x" />
     <div class="statistics-page">
       <ol v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
@@ -30,10 +31,32 @@ import { Component } from "vue-property-decorator";
 import Tags from "@/components/Money/Tags.vue";
 import dayjs from "dayjs";
 import clone from "@/lib/clone";
+import Chart from "@/components/Chart.vue";
 @Component({
-  components: { Tabs },
+  components: { Tabs, Chart },
 })
 export default class Statistics extends Vue {
+  get x() {
+    return {
+      xAxis: {
+        type: "category",
+        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      },
+      yAxis: {
+        type: "value",
+      },
+      tooltip: {
+        show: true,
+        triggerOn: "click | mousemove",
+      },
+      series: [
+        {
+          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          type: "line",
+        },
+      ],
+    };
+  }
   tagString(tags: Tag[]) {
     return tags.length === 0 ? "无" : tags.map((t) => t.name).join("，");
   }
@@ -100,8 +123,6 @@ export default class Statistics extends Vue {
 
 <style lang="scss" scoped>
 .statistics-page {
-  overflow: auto;
-  max-height: 82vh;
 }
 .noResult {
   padding: 16px;
