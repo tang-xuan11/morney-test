@@ -34,6 +34,7 @@ import Tags from "@/components/Money/Tags.vue";
 import dayjs from "dayjs";
 import clone from "@/lib/clone";
 import Chart from "@/components/Chart.vue";
+import _ from "lodash";
 @Component({
   components: { Tabs, Chart },
 })
@@ -42,7 +43,32 @@ export default class Statistics extends Vue {
     const div = this.$refs.chartWrapper as HTMLDivElement;
     div.scrollLeft = div.scrollWidth;
   }
+  get y() {
+    const today = new Date();
+    const array = [];
+    for (let i = 0; i <= 29; i++) {
+      const dayString = dayjs(today).subtract(i, "day").format("YYYY-MM-DD");
+      const found = _.find(this.recordList, { createdAt: dayString });
+      array.push({
+        date: dayString,
+        value: found ? found.amount : 0,
+      });
+      array.sort((a, b) => {
+        if (a.date > b.date) {
+          return 1;
+        } else if (a.date === b.date) {
+          return 0;
+        } else {
+          return -1;
+        }
+      });
+    }
+    return array;
+  }
   get x() {
+    const keys = this.y.map((item) => item.date);
+    const values = this.y.map((item) => item.value);
+    this.recordList.map((r) => _.pick(r, ["createdAt", "amount"]));
     return {
       grid: {
         left: 0,
@@ -50,38 +76,7 @@ export default class Statistics extends Vue {
       },
       xAxis: {
         type: "category",
-        data: [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7",
-          "8",
-          "9",
-          "10",
-          "11",
-          "12",
-          "13",
-          "14",
-          "15",
-          "16",
-          "17",
-          "18",
-          "19",
-          "20",
-          "21",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "27",
-          "28",
-          "29",
-          "30",
-        ],
+        data: keys,
         axisTick: { alignWithLabel: true },
         axisLine: { lineStyle: { color: "#666" } },
       },
@@ -99,7 +94,7 @@ export default class Statistics extends Vue {
           symbol: "circle",
           itemStyle: { borderWidth: 1, color: "#666", borderColor: "#666" },
           symbolSize: 12,
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          data: values,
           type: "line",
         },
       ],
