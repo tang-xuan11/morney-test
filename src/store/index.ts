@@ -53,7 +53,7 @@ const store = new Vuex.Store({
     },
     createRecord(state, record: RecordItem) {
       const record2 = clone(record);
-      record2.createdAt = new Date().toISOString();
+      record2.createdAt = record2.createdAt || new Date().toISOString();
       state.recordList.push(record2);
       store.commit("saveRecords");
     },
@@ -82,7 +82,6 @@ const store = new Vuex.Store({
       const id = createId().toString();
       state.tagList.push({ id, name: name });
       store.commit("saveTags");
-      
     },
     saveTags(state) {
       window.localStorage.setItem("tagList", JSON.stringify(state.tagList));

@@ -9,6 +9,8 @@
 @import "~@/assets/style/helper.scss";
 
 #app {
+  max-width: 500px;
+  margin: 0 auto;
   font-family: $font-hei;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;

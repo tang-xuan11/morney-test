@@ -5,6 +5,14 @@
     <div class="notes">
       <FormItem fieldName="备注" placeholder="在这里输入备注" :value.sync="record.notes" />
     </div>
+    <div class="createdAt">
+      <FormItem
+        type="date"
+        fieldName="日期"
+        placeholder="在这里输入日期"
+        :value.sync="record.createdAt"
+      />
+    </div>
     <Tags @update:value="record.tags = $event" />
   </Layout>
 </template>
@@ -32,6 +40,7 @@ export default class Money extends Vue {
     notes: "",
     type: "-",
     amount: 0,
+    createdAt: new Date().toISOString(),
   };
 
   created() {
@@ -62,6 +71,7 @@ export default class Money extends Vue {
   flex-direction: column-reverse;
 }
 .notes {
+  background: white;
   padding: 12px 0;
 }
 </style>
