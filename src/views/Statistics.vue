@@ -39,7 +39,8 @@ import Chart from "@/components/Chart.vue";
 })
 export default class Statistics extends Vue {
   mounted() {
-    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999;
+    const div = this.$refs.chartWrapper as HTMLDivElement;
+    div.scrollLeft = div.scrollWidth;
   }
   get x() {
     return {
