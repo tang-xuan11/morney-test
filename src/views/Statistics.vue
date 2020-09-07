@@ -70,10 +70,12 @@ export default class Statistics extends Vue {
     const keys = this.keyValueList.map((item) => item.key);
     const values = this.keyValueList.map((item) => item.value);
     this.recordList.map((r) => _.pick(r, ["createdAt", "amount"]));
+
     return {
       grid: {
         left: 0,
         right: 0,
+        height: 50,
       },
       xAxis: {
         type: "category",
@@ -211,6 +213,7 @@ export default class Statistics extends Vue {
 }
 .chart {
   width: 430%;
+  height: 200px;
   &-wrapper {
     overflow: auto;
     &::-webkit-scrollbar {
