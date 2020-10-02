@@ -1,6 +1,6 @@
 <template>
   <div class="numberPad">
-    <div class="output">{{output}}</div>
+    <div class="output">{{ output }}</div>
     <div class="buttons">
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
@@ -31,6 +31,7 @@ export default class NumberPad extends Vue {
   inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement;
     const input = button.textContent!;
+    const pointIndex = this.output.indexOf(".");
     if (this.output.length === 16) {
       return;
     }
@@ -43,6 +44,9 @@ export default class NumberPad extends Vue {
       return;
     }
     if (this.output.indexOf(".") >= 0 && input === ".") {
+      return;
+    }
+    if (this.output.slice(pointIndex).length > 2) {
       return;
     }
     this.output += input;
@@ -82,11 +86,11 @@ export default class NumberPad extends Vue {
     button {
       float: left;
       width: 25%;
-      height: 64px;
+      height: 50px;
       background: transparent;
       border: none;
       &.ok {
-        height: 64 * 2px;
+        height: 50 * 2px;
         float: right;
       }
       &.zero {
@@ -122,7 +126,7 @@ export default class NumberPad extends Vue {
         background: darken($bg, 4 * 6px);
       }
     }
-    > .remove{
+    > .remove {
       font-size: 28px;
     }
   }
