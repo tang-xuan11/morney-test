@@ -20,6 +20,7 @@ export default {
   flex-direction: column;
   min-height: 100vh;
 }
+
 .content {
   overflow: auto;
   flex-grow: 1;

@@ -34,6 +34,7 @@ export default class Notes extends Vue {
   @Prop() type?: string;
   onValueChanged(value: string) {
     this.$emit("update:value", value);
+    
   }
   x(isoString: string) {
     return dayjs(isoString).format("YYYY-MM-DD");
