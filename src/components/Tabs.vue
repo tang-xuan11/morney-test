@@ -1,13 +1,17 @@
 <template>
-  <ul class="tabs">
-    <li
-      v-for="item in dataSource"
-      :key="item.value"
-      class="tabs-item"
-      :class="liClass(item)"
-      @click="select(item)"
-    >{{item.text}}</li>
-  </ul>
+  <div class="wrapper">
+    <ul class="tabs">
+      <li
+        v-for="item in dataSource"
+        :key="item.value"
+        class="tabs-item"
+        :class="liClass(item)"
+        @click="select(item)"
+      >
+        {{ item.text }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">
@@ -37,18 +41,22 @@ export default class Tabs extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffda47;
+}
+
 .tabs {
-  background: #c4c4c4;
   display: flex;
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   &-item {
     display: flex;
+    padding: 12px 16px 8px 16px;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    line-height: 64px;
-    height: 64px;
     position: relative;
     &.selected::after {
       content: "";
@@ -56,7 +64,7 @@ export default class Tabs extends Vue {
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 4px;
+      height: 2px;
       background: #333;
     }
   }
