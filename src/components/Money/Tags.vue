@@ -45,17 +45,6 @@ export default class Tags extends Vue {
     }
     this.$emit("update:value", this.selectedTags);
   }
-  create() {
-    const name = window.prompt("请输入标签名");
-    if (name === "") {
-      return window.alert("标签名不能为空");
-    } else if (name === null) {
-      return;
-    } else {
-      this.$store.commit("createTag", { name });
-      window.alert("添加成功");
-    }
-  }
 }
 </script>
 

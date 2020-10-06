@@ -34,17 +34,6 @@ export default class Labels extends Vue {
   beforeCreate() {
     this.$store.commit("fetchTags");
   }
-  createTag() {
-    const name = window.prompt("请输入标签名");
-    if (name === "") {
-      window.alert("标签名不能为空");
-    } else if (name === null) {
-      return;
-    } else {
-      this.$store.commit("createTag", name);
-      window.alert("添加成功");
-    }
-  }
 }
 </script>
 

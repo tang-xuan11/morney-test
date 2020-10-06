@@ -44,9 +44,6 @@ export default class AddTagList extends Vue {
   get iconList() {
     return this.$store.state.iconList;
   }
-  get tagList() {
-    return this.$store.state.tagList;
-  }
   selectedIcons: any[] = [];
 
   toggle(icon: string) {
@@ -68,6 +65,12 @@ export default class AddTagList extends Vue {
     this.$router.back();
   }
   saveAddTag() {
+    if (this.addTag.name === "") {
+      return window.alert("标签名不能为空");
+    }
+    if (this.addTag.icon === "") {
+      return window.alert("请选择一个标签");
+    }
     this.$store.commit("createTag", this.addTag);
     this.addTag = { name: "", icon: "" };
     this.$router.back();
@@ -94,6 +97,7 @@ ul {
   flex-wrap: wrap;
   display: flex;
   align-content: flex-start;
+  margin-top: 12px;
   > li {
     display: flex;
     justify-content: center;
