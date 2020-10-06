@@ -3,7 +3,8 @@ type RootState = {
   createRecordError: Error | null;
   tagList: Tag[];
   currentTag?: Tag;
-  iconList: Icon[];
+  payIconList: Icon[];
+  receiptIconList: Icon[];
 };
 type RecordItem = {
   tags: Tag[];

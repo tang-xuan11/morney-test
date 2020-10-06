@@ -4,7 +4,7 @@ import clone from "@/lib/clone";
 import createId from "@/lib/createId";
 import router from "@/router";
 Vue.use(Vuex);
-const defaultIconList = [
+const payIconList = [
   { iconName: "child" },
   { iconName: "cure" },
   { iconName: "dress" },
@@ -13,6 +13,25 @@ const defaultIconList = [
   { iconName: "repast" },
   { iconName: "sports" },
   { iconName: "traffic" },
+  { iconName: "bicycle" },
+  { iconName: "billiards" },
+  { iconName: "book" },
+  { iconName: "bowling" },
+  { iconName: "game" },
+  { iconName: "house" },
+  { iconName: "smartphone" },
+  { iconName: "swim" },
+  { iconName: "taxi" },
+  { iconName: "tea" },
+];
+const receiptIconList = [
+  { iconName: "bill" },
+  { iconName: "creditCard" },
+  { iconName: "donation" },
+  { iconName: "piggyBank" },
+  { iconName: "purse" },
+  { iconName: "redEnvelope" },
+  { iconName: "revenue" },
 ];
 
 const store = new Vuex.Store({
@@ -20,7 +39,8 @@ const store = new Vuex.Store({
     recordList: [],
     createRecordError: null,
     tagList: [],
-    iconList: defaultIconList,
+    payIconList: payIconList,
+    receiptIconList: receiptIconList,
     currentTag: undefined,
   } as RootState,
   mutations: {
