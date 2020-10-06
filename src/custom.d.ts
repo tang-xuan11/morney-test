@@ -3,6 +3,7 @@ type RootState = {
   createRecordError: Error | null;
   tagList: Tag[];
   currentTag?: Tag;
+  iconList: Icon[];
 };
 type RecordItem = {
   tags: Tag[];
@@ -11,10 +12,13 @@ type RecordItem = {
   amount: number;
   createdAt?: string;
 };
-
+type Icon = {
+  iconName: string;
+};
 type Tag = {
-  id: string;
+  id?: string;
   name: string;
+  icon?: string;
 };
 type TagListModel = {
   data: Tag[];
@@ -23,4 +27,8 @@ type TagListModel = {
   update: (id: string, name: string) => "success" | "not found" | "duplicated";
   remove: (id: string) => boolean;
   save: () => void;
+};
+type DataSourceItem = {
+  text: string;
+  value: string;
 };

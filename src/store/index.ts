@@ -4,12 +4,23 @@ import clone from "@/lib/clone";
 import createId from "@/lib/createId";
 import router from "@/router";
 Vue.use(Vuex);
+const defaultIconList = [
+  { iconName: "child" },
+  { iconName: "cure" },
+  { iconName: "dress" },
+  { iconName: "fruit" },
+  { iconName: "live" },
+  { iconName: "repast" },
+  { iconName: "sports" },
+  { iconName: "traffic" },
+];
 
 const store = new Vuex.Store({
   state: {
     recordList: [],
     createRecordError: null,
     tagList: [],
+    iconList: defaultIconList,
     currentTag: undefined,
   } as RootState,
   mutations: {
@@ -68,19 +79,21 @@ const store = new Vuex.Store({
         window.localStorage.getItem("tagList") || "[]"
       );
       if (!state.tagList || state.tagList.length === 0) {
-        store.commit("createTag", "衣");
-        store.commit("createTag", "食");
-        store.commit("createTag", "住");
-        store.commit("createTag", "行");
+        store.commit("createTag", { name: "服饰", icon: "dress" });
+        store.commit("createTag", { name: "孩子", icon: "child" });
+        store.commit("createTag", { name: "水果", icon: "fruit" });
+        store.commit("createTag", { name: "住宿", icon: "live" });
+        store.commit("createTag", { name: "运动", icon: "sports" });
       }
     },
-    createTag(state, name: string) {
+    createTag(state, tag: { name: string; icon: string }) {
+      const { name, icon } = tag;
       const names = state.tagList.map((item) => item.name);
       if (names.indexOf(name) >= 0) {
         return window.alert("标签名重复");
       }
       const id = createId().toString();
-      state.tagList.push({ id, name: name });
+      state.tagList.push({ id, name, icon });
       store.commit("saveTags");
     },
     saveTags(state) {

@@ -1,14 +1,21 @@
 <template>
   <Layout>
     <div class="tags">
-      <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
-        <span>{{tag.name}}</span>
+      <router-link
+        class="tag"
+        v-for="tag in tags"
+        :key="tag.id"
+        :to="`/labels/edit/${tag.id}`"
+      >
+        <span>{{ tag.name }}</span>
         <Icon name="right" />
       </router-link>
     </div>
-    <div class="createTag-wapper">
-      <Button class="createTag" @click="createTag">新建标签</Button>
-    </div>
+    <router-link to="/money/addTagList">
+      <div class="createTag-wapper">
+        <Button class="createTag">新建标签</Button>
+      </div>
+    </router-link>
   </Layout>
 </template>
 

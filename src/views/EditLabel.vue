@@ -10,7 +10,8 @@
         :value="currentTag.name"
         @update:value="update"
         fieldName="标签名"
-        placeholder="请输入标签名"
+        placeholder="请输入标签名（不超过4个字符）"
+        :maxlength="4"
       />
     </div>
     <div class="button-wapper">

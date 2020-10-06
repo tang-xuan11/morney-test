@@ -2,7 +2,11 @@
   <Layout class-prefix="layout">
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" />
     <div class="notes">
-      <FormItem fieldName="备注" placeholder="在这里输入备注" :value.sync="record.notes" />
+      <FormItem
+        fieldName="备注"
+        placeholder="在这里输入备注"
+        :value.sync="record.notes"
+      />
     </div>
     <div class="createdAt">
       <FormItem
@@ -55,6 +59,9 @@ export default class Money extends Vue {
   saveRecord() {
     if (!this.record.tags || this.record.tags.length === 0) {
       return window.alert("请选择至少一个标签");
+    }
+    if (this.record.amount === 0) {
+      return window.alert("请输入金额");
     }
     this.$store.commit("createRecord", this.record);
     if (this.$store.state.createRecordError === null) {

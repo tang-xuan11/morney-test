@@ -3,9 +3,10 @@ import VueRouter, { RouteConfig } from "vue-router";
 import Money from "@/views/Money.vue";
 import Labels from "@/views/Labels.vue";
 import Statistics from "@/views/Statistics.vue";
-import NotFound from '@/views/NotFound.vue'
-import EditLabel from '@/views/EditLabel.vue'
-import { component } from 'vue/types/umd';
+import NotFound from "@/views/NotFound.vue";
+import EditLabel from "@/views/EditLabel.vue";
+import AddTagList from "@/views/AddTagList.vue";
+import { component } from "vue/types/umd";
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,10 @@ const routes: Array<RouteConfig> = [
     component: Money,
   },
   {
+    path: "/money/addTagList",
+    component: AddTagList,
+  },
+  {
     path: "/labels",
     component: Labels,
   },
@@ -27,13 +32,13 @@ const routes: Array<RouteConfig> = [
     component: Statistics,
   },
   {
-    path: '/labels/edit/:id',
+    path: "/labels/edit/:id",
     component: EditLabel,
   },
   {
-    path: '*',
-    component: NotFound
-  }
+    path: "*",
+    component: NotFound,
+  },
 ];
 
 const router = new VueRouter({

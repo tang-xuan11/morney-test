@@ -1,15 +1,25 @@
 <template>
   <div class="tags">
-    <div class="new">
-      <button @click="create">新增标签</button>
-    </div>
     <ul class="current">
-      <li
-        v-for="tag in tagList"
-        :key="tag.id"
-        :class="{selected:selectedTags.indexOf(tag)>=0}"
-        @click="toggle(tag)"
-      >{{tag.name}}</li>
+      <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)">
+        <div
+          class="iconWrapper"
+          :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
+        >
+          <Icon :name="tag.icon" />
+        </div>
+        <div class="iconName">
+          {{ tag.name }}
+        </div>
+      </li>
+      <li class="new">
+        <router-link to="/money/addTagList" class="addTagList">
+          <div class="addTagWrapper">
+            <Icon name="add" />
+          </div>
+          <div class="addTag">新增标签</div>
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -42,7 +52,7 @@ export default class Tags extends Vue {
     } else if (name === null) {
       return;
     } else {
-      this.$store.commit("createTag", name);
+      this.$store.commit("createTag", { name });
       window.alert("添加成功");
     }
   }
@@ -52,39 +62,75 @@ export default class Tags extends Vue {
 <style lang="scss" scoped>
 .tags {
   display: flex;
-  flex-direction: column-reverse;
   flex-grow: 1;
-  font-size: 14px;
   padding: 16px;
+  height: 100px;
+  overflow: auto;
   > .current {
-    display: flex;
     flex-wrap: wrap;
+    display: flex;
+    align-content: flex-start;
     > li {
-      $bg: #d9d9d9;
-      background: $bg;
-      $h: 24px;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: $h;
-      border-radius: $h/2;
-      padding: 0 16px;
-      margin-right: 12px;
-      margin-top: 4px;
-      &.selected {
-        background: darken($bg, 50%);
-        color: white;
+      width: 25%;
+      padding: 4px 12px;
+      flex-direction: column;
+      display: flex;
+      > .iconName {
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      > .iconWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        &.selected {
+          background: orange;
+          color: white;
+        }
+        > .icon {
+          display: flex;
+          width: 40px;
+          height: 40px;
+        }
       }
     }
-  }
-  > .new {
-    padding-top: 16px;
-    > button {
-      background: transparent;
-      border: none;
-      color: #999;
-      border-bottom: 1px solid;
-      padding: 0 4px;
+    > .new {
+      display: flex;
+      padding: 4px 12px;
+      > .addTagList {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: none;
+        background: transparent;
+        > .addTag {
+          font-size: 14px;
+          display: flex;
+          flex-wrap: nowrap;
+        }
+        > .addTagWrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          > .icon {
+            display: flex;
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
     }
   }
 }
