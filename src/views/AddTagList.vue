@@ -50,8 +50,9 @@
 import Vue from "vue";
 import FormItem from "@/components/Money/FormItem.vue";
 import { Component } from "vue-property-decorator";
-import { add } from "lodash";
+import { add, map } from "lodash";
 import Tags from "@/components/Money/Tags.vue";
+import { Message } from "element-ui";
 @Component({
   components: { FormItem },
 })
@@ -67,6 +68,9 @@ export default class AddTagList extends Vue {
   get receiptIconList() {
     return this.$store.state.receiptIconList;
   }
+  get tagList() {
+    return this.$store.state.tagList;
+  }
   selectedIcons: any[] = [];
 
   toggle(icon: string) {
@@ -81,25 +85,48 @@ export default class AddTagList extends Vue {
     }
     if (this.selectedIcons[0]) {
       this.addTag.icon = this.selectedIcons[0].iconName;
+    } else {
+      this.addTag.icon = "";
     }
-    this.$emit("update:value", this.selectedIcons);
+    // this.$emit("update:value", this.selectedIcons);
   }
   goBack() {
     this.$router.back();
   }
   saveAddTag() {
+    const names = this.tagList.map((i: any) => i.name);
+    const name = this.addTag.name;
+    if (names.indexOf(name) >= 0) {
+      return Message.warning({
+        message: "标签名不能重复",
+        offset: 100,
+        showClose: true,
+      });
+    }
     if (this.addTag.name === "") {
-      return window.alert("标签名不能为空");
+      return Message.warning({
+        message: "标签名不能为空",
+        offset: 100,
+        showClose: true,
+      });
     }
     if (this.addTag.icon === "") {
-      return window.alert("请选择一个标签");
+      return Message.warning({
+        message: "请选择一个标签",
+        offset: 100,
+        showClose: true,
+      });
     }
     if (this.addTag.name.indexOf(" ") >= 0) {
-      return window.alert("不能添加空格");
+      return Message.warning({
+        message: "不能添加空格",
+        offset: 100,
+        showClose: true,
+      });
     }
     this.$store.commit("createTag", this.addTag);
     this.addTag = { name: "", icon: "" };
-    window.alert("添加成功");
+    Message.success({ message: "添加成功", showClose: true });
     this.$router.back();
   }
 }
@@ -114,7 +141,9 @@ export default class AddTagList extends Vue {
   margin-top: 12px;
   text-align: center;
 }
-
+.el-message {
+  width: 200px;
+}
 .navBar {
   background: #ffffff;
   display: flex;

@@ -6,8 +6,10 @@ import store from "./store";
 import Nav from "@/components/Nav.vue";
 import Layout from "@/components/Layout.vue";
 import Icon from "@/components/Icon.vue";
-import echarts from 'echarts'
-
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+import echarts from "echarts";
+Vue.use(ElementUI, { size: "small" });
 Vue.config.productionTip = false;
 Vue.component("Nav", Nav);
 Vue.component("Layout", Layout);
@@ -24,4 +26,3 @@ window.onload = function() {
     window.scrollTo(0, 100);
   }, 0);
 };
-

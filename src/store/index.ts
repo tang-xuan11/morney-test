@@ -109,12 +109,12 @@ const store = new Vuex.Store({
     createTag(state, tag: { name: string; icon: string }) {
       const { name, icon } = tag;
       const names = state.tagList.map((item) => item.name);
-      if (names.indexOf(name) >= 0) {
-        return window.alert("标签名重复");
+      console.log(names)
+      if (names.indexOf(name) < 0) {
+        const id = createId().toString();
+        state.tagList.push({ id, name, icon });
+        store.commit("saveTags");
       }
-      const id = createId().toString();
-      state.tagList.push({ id, name, icon });
-      store.commit("saveTags");
     },
     saveTags(state) {
       window.localStorage.setItem("tagList", JSON.stringify(state.tagList));
