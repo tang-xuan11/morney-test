@@ -31,7 +31,7 @@ import Overlay from "@/components/Overlay.vue";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import recordTypeList from "@/constants/recordTypeList";
-
+import { Message } from "element-ui";
 @Component({
   components: { Tags, FormItem, Tabs, NumberPad, Overlay },
 })
@@ -63,14 +63,26 @@ export default class Money extends Vue {
   }
   saveRecord() {
     if (!this.record.tags || this.record.tags.length === 0) {
-      return window.alert("请选择至少一个标签");
+      return Message.warning({
+        message: "请选择至少一个标签",
+        offset: 55,
+        showClose: true,
+      });
     }
     if (this.record.amount === 0) {
-      return window.alert("请输入金额");
+      return Message.warning({
+        message: "请输入金额",
+        offset: 55,
+        showClose: true,
+      });
     }
     this.$store.commit("createRecord", this.record);
     if (this.$store.state.createRecordError === null) {
-      window.alert("已保存");
+      Message.success({
+        message: "已保存",
+        offset: 55,
+        showClose: true,
+      });
       this.record.notes = "";
     }
   }

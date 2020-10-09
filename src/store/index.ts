@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import clone from "@/lib/clone";
 import createId from "@/lib/createId";
 import router from "@/router";
+import { Message } from "element-ui";
+
 Vue.use(Vuex);
 const payIconList = [
   { iconName: "child" },
@@ -53,7 +55,11 @@ const store = new Vuex.Store({
       if (idList.indexOf(id) >= 0) {
         const names = state.tagList.map((item) => item.name);
         if (names.indexOf(name) >= 0) {
-          window.alert("标签名重复");
+          Message.warning({
+            message: "标签名重复,请重新输入",
+            offset: 55,
+            showClose: true,
+          });
         } else {
           const tag = state.tagList.filter((item) => item.id === id)[0];
           tag.name = name;
