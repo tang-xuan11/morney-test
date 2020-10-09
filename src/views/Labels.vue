@@ -7,7 +7,10 @@
         :key="tag.id"
         :to="`/labels/edit/${tag.id}`"
       >
-        <span>{{ tag.name }}</span>
+        <span>
+          <Icon :name="tag.icon" />
+          {{ tag.name }}
+        </span>
         <Icon name="right" />
       </router-link>
     </div>
@@ -50,6 +53,14 @@ export default class Labels extends Vue {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #e2e2e2;
+    > span {
+      display: flex;
+      align-items: center;
+      > .icon {
+        font-size: 24px;
+        margin-right: 4px;
+      }
+    }
     > svg {
       font-size: 20px;
       margin-right: 16px;

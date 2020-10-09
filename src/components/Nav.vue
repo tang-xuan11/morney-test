@@ -22,9 +22,14 @@ export default {
 @import "~@/assets/style/helper.scss";
 nav {
   @extend %outerShadow;
+  position: fixed;
+  bottom: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
+  width: 100%;
   font-size: 12px;
+  background: white;
   > .item {
     padding: 2px 0;
     width: 33.33333%;

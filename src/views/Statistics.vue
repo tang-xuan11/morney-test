@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Tabs :data-source="typeList" :value.sync="type" />
+    <Tabs :data-source="typeList" :value.sync="type" pageLink="/labels" />
     <div class="chart-wrapper" ref="chartWrapper">
       <Chart class="chart" :options="chartOptions" />
     </div>
@@ -13,7 +13,9 @@
           </h3>
           <ol>
             <li v-for="item in group.items" :key="item.id" class="record">
-              <span>{{ tagString(item.tags) }}</span>
+              <span>
+                {{ tagString(item.tags) }}
+              </span>
               <span class="notes">{{ item.notes }}</span>
               <span>￥{{ item.amount }}</span>
             </li>

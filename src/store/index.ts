@@ -109,7 +109,6 @@ const store = new Vuex.Store({
     createTag(state, tag: { name: string; icon: string }) {
       const { name, icon } = tag;
       const names = state.tagList.map((item) => item.name);
-      console.log(names)
       if (names.indexOf(name) < 0) {
         const id = createId().toString();
         state.tagList.push({ id, name, icon });

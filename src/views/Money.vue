@@ -1,6 +1,10 @@
 <template>
-  <Layout class-prefix="layout">
-    <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" />
+  <div class="money-wrapper">
+    <NumberPad
+      @update:value="onUpdateAmount"
+      @update:dayvalue="onUpdateCreateAt"
+      @submit="saveRecord"
+    />
     <div class="notes">
       <FormItem
         fieldName="备注"
@@ -8,17 +12,14 @@
         :value.sync="record.notes"
       />
     </div>
-    <div class="createdAt">
-      <FormItem
-        type="date"
-        fieldName="日期"
-        placeholder="在这里输入日期"
-        :value.sync="record.createdAt"
-      />
-    </div>
     <Tags @update:value="record.tags = $event" />
-    <Tabs :data-source="recordTypeList" :value.sync="record.type" />
-  </Layout>
+    <Tabs
+      :data-source="recordTypeList"
+      :value.sync="record.type"
+      pageLink="/labels"
+      text="取消"
+    />
+  </div>
 </template>
 
 <script lang='ts'>
@@ -26,12 +27,13 @@ import Tags from "@/components/Money/Tags.vue";
 import FormItem from "@/components/Money/FormItem.vue";
 import Tabs from "@/components/Tabs.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
+import Overlay from "@/components/Overlay.vue";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import recordTypeList from "@/constants/recordTypeList";
 
 @Component({
-  components: { Tags, FormItem, Tabs, NumberPad },
+  components: { Tags, FormItem, Tabs, NumberPad, Overlay },
 })
 export default class Money extends Vue {
   get recordList() {
@@ -56,6 +58,9 @@ export default class Money extends Vue {
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
   }
+  onUpdateCreateAt(value: string) {
+    this.record.createdAt = value;
+  }
   saveRecord() {
     if (!this.record.tags || this.record.tags.length === 0) {
       return window.alert("请选择至少一个标签");
@@ -73,9 +78,10 @@ export default class Money extends Vue {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .layout-content {
+.money-wrapper {
   display: flex;
   flex-direction: column-reverse;
+  min-height: 100vh;
 }
 .notes {
   background: white;

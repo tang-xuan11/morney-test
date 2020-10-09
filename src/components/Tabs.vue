@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <div class="close"></div>
     <ul class="tabs">
       <li
         v-for="item in dataSource"
@@ -11,6 +12,7 @@
         {{ item.text }}
       </li>
     </ul>
+    <router-link :to="pageLink" class="close">{{ text }}</router-link>
   </div>
 </template>
 
@@ -23,6 +25,8 @@ export default class Tabs extends Vue {
   @Prop({ required: true, type: Array }) dataSource!: DataSourceItem[];
   @Prop(String) readonly value!: string;
   @Prop(String) classPrefix?: string;
+  @Prop(String) text?: string;
+  @Prop(String) pageLink?: string;
 
   liClass(item: DataSourceItem) {
     return {
@@ -40,9 +44,14 @@ export default class Tabs extends Vue {
 <style lang="scss" scoped>
 .wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background: #ffda47;
+  > .close {
+    display: flex;
+    padding: 0 16px;
+    width: 64px;
+  }
 }
 
 .tabs {

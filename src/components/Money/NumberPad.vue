@@ -5,13 +5,13 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button class="remove" @click="remove">
-        <Icon name="remove" />
-      </button>
+      <Overlay @update:value="updateDate" />
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="clear">清空</button>
+      <button class="remove" @click="remove">
+        <Icon name="remove" />
+      </button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
@@ -24,10 +24,18 @@
 
 <script lang="ts">
 import Vue from "vue";
+import Overlay from "@/components/Overlay.vue";
 import { Component } from "vue-property-decorator";
-@Component
+import { clone } from "lodash";
+@Component({
+  components: { Overlay },
+})
 export default class NumberPad extends Vue {
   output = "0";
+  date = new Date().toISOString();
+  updateDate(value: string) {
+    this.date = value;
+  }
   inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement;
     const input = button.textContent!;
@@ -62,6 +70,7 @@ export default class NumberPad extends Vue {
     this.output = "0";
   }
   ok() {
+    this.$emit("update:dayvalue", this.date);
     this.$emit("update:value", this.output);
     this.$emit("submit", this.output);
     this.output = "0";
